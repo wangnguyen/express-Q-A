@@ -62,8 +62,8 @@ router.delete('/:qID/answers/:aID', (req, res) => {
 
 // POST /questions/:qID/answers/:aID/vote-:dir
 // vote the answer (vote-up || vote-down)
-router.post('/:qID/answers/:aID/vote-:dir',
-(req, res, next) => {
+router.post('/:qID/answers/:aID/vote-:dir', (req, res, next) => {
+    // just allow string 'up' or 'down'
     if(req.params.dir.search(/^(up|down)$/) === -1) {
         var err = new Error('Not Found');
         err.status = 404;
@@ -71,8 +71,7 @@ router.post('/:qID/answers/:aID/vote-:dir',
     } else {
         next();
     }
-},
-(req, res) => {
+}, (req, res) => {
     res.json({
         response: `Vote ${req.params.dir} answer id: ${req.params.aID} of question id: ${req.params.qID}`,
     })
